@@ -24,8 +24,11 @@ WHITE = (255,255,255)
 
 # ノーツデータ
 note_red = pygame.image.load('red.png')
+note_red = pygame.transform.scale(note_red, (120, 40))
 note_green = pygame.image.load('green.png')
+note_green = pygame.transform.scale(note_green, (120, 40))
 note_blue = pygame.image.load('blue.png')
+note_blue = pygame.transform.scale(note_blue, (120, 40))
 
 def notes(x, y):
     screen.blit(note_red, (x, y))
@@ -52,12 +55,12 @@ btn_green2 = pygame.K_k
 btn_blue2 = pygame.K_l
 
 # ノーツの座標
-x = 480
+x = 540
 y = 0
 
 # 判定ライン
 judge_line = 600
-judge_point = judge_line - 80
+judge_point = judge_line - 40
 
 score = 0
 running = True
@@ -81,6 +84,16 @@ while running:
                     score += 2
                 elif judge_point - 60 < y and y < judge_point + 60:
                     score += 1
+            # elif event.key == btn_green1 or event.key == btn_green2:
+            #     if judge_point - 20 < y and y < judge_point + 20:
+            #         score += 2
+            #     elif judge_point - 60 < y and y < judge_point + 60:
+            #         score += 1
+            # elif event.key == btn_blue1 or event.key == btn_blue2:
+            #     if judge_point - 20 < y and y < judge_point + 20:
+            #         score += 2
+            #     elif judge_point - 60 < y and y < judge_point + 60:
+            #         score += 1
                 
     y += 0.5
     if y == SCREEN_HEIGHT:
