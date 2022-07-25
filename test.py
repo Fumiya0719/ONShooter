@@ -30,8 +30,8 @@ note_green = pygame.transform.scale(note_green, (120, 40))
 note_blue = pygame.image.load('blue.png')
 note_blue = pygame.transform.scale(note_blue, (120, 40))
 
-def notes(x, y):
-    screen.blit(note_red, (x, y))
+def notes(note, x, y):
+    screen.blit(note, (x, y))
 
 # 背景色
 bgc = (BLACK)
@@ -55,8 +55,12 @@ btn_green2 = pygame.K_k
 btn_blue2 = pygame.K_l
 
 # ノーツの座標
-x = 540
-y = 0
+xr = 420
+yr = 0
+xg = 540
+yg = 0
+xb = 660
+yb = 0
 
 # 判定ライン
 judge_line = 600
@@ -80,23 +84,31 @@ while running:
         # ボタンが押された時の処理
         if event.type == pygame.KEYDOWN:
             if event.key == btn_red1 or event.key == btn_red2:
-                if judge_point - 20 < y and y < judge_point + 20:
+                if judge_point - 20 < yr and yr < judge_point + 20:
                     score += 2
-                elif judge_point - 60 < y and y < judge_point + 60:
+                elif judge_point - 60 < yr and yr < judge_point + 60:
                     score += 1
-            # elif event.key == btn_green1 or event.key == btn_green2:
-            #     if judge_point - 20 < y and y < judge_point + 20:
-            #         score += 2
-            #     elif judge_point - 60 < y and y < judge_point + 60:
-            #         score += 1
-            # elif event.key == btn_blue1 or event.key == btn_blue2:
-            #     if judge_point - 20 < y and y < judge_point + 20:
-            #         score += 2
-            #     elif judge_point - 60 < y and y < judge_point + 60:
-            #         score += 1
+            elif event.key == btn_green1 or event.key == btn_green2:
+                if judge_point - 20 < yg and yg < judge_point + 20:
+                    score += 2
+                elif judge_point - 60 < yg and yg < judge_point + 60:
+                    score += 1
+            elif event.key == btn_blue1 or event.key == btn_blue2:
+                if judge_point - 20 < yb and yb < judge_point + 20:
+                    score += 2
+                elif judge_point - 60 < yb and yb < judge_point + 60:
+                    score += 1
                 
-    y += 0.5
-    if y == SCREEN_HEIGHT:
-        y = 0
-    notes(x, y)
+    yr += 0.5
+    yg += 0.5
+    yb += 0.5
+    if yr == SCREEN_HEIGHT:
+        yr = 0
+    if yg == SCREEN_HEIGHT:
+        yg = 0
+    if yb == SCREEN_HEIGHT:
+        yb = 0
+    notes(note_red, xr, yr)
+    notes(note_green, xg, yg)
+    notes(note_blue, xb, yb)
     pygame.display.update()
