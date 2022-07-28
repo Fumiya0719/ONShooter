@@ -1,14 +1,5 @@
-"""
-譜面データ
-"""
+import pygame
+from pygame.locals import *
 
-TITLE = "testmusic"
+TITLE = "testsong"
 BPM = 120
-
-data = [
-    [
-        [1,0,0,0],
-        [1,0,1,0],
-        [0,1,0,1]
-    ]
-]

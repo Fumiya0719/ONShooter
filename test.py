@@ -4,7 +4,8 @@ import sys, random
 import math
 from screen import FixedScreen
 from notes import Notes
-import scores.score1 as map
+import time
+# import scores.score1 as map
 
 pygame.init() 
 
@@ -56,10 +57,13 @@ btn_green2 = pygame.K_k
 btn_blue2 = pygame.K_l
 
 # 楽曲関連の設定
-TITLE = map.TITLE
-BPM = map.BPM
-# notes per second
-NPM = (BPM / 60) / 1000
+SF = open('scores/score1.txt', 'r')
+TITLE = SF.readline()
+bpm = int(SF.readline())
+SF.readline()
+mapData = SF.readlines()
+print(mapData)
+# sys.exit()
 
 # 判定ライン
 judge_point = 560
@@ -78,11 +82,30 @@ yb = 0
 
 # スコア表示
 running = True
+st_time = time.perf_counter()
+# ゲームの起動
 while running:
     SCREEN.draw(screen, 600, SCREEN_HEIGHT)
 
     message = font.render('score: ' + str(score), False, WHITE)
     screen.blit(message, (20,20)) 
+
+    pass_time = time.perf_counter()
+    nowtime = pass_time - st_time
+    # print(nowtime)
+    if int(nowtime) == (bpm / 60):
+        br = False
+        yr = 0
+        bg = False 
+        yg = 0
+        bb = False
+        yb = 0
+        NR.draw(screen, br)
+        NG.draw(screen, bg)
+        NB.draw(screen, bb)
+
+    nowtime = font.render('time: ' + str(nowtime), False, WHITE)
+    screen.blit(nowtime, (20, 60))
 
     for event in pygame.event.get():
         if event.type == QUIT:
@@ -113,20 +136,31 @@ while running:
                     NB.remove()
                 if judge_point - 20 < yb and yb < judge_point + 20:
                     score += 1
-      
-    yr += 0.5
-    yg += 0.5
-    yb += 0.5
-    if yr == SCREEN_HEIGHT:
-        yr = 0
-    if yg == SCREEN_HEIGHT:
-        yg = 0
-    if yb == SCREEN_HEIGHT:
-        yb = 0
-    NR.fall(418, yr)
-    NG.fall(540, yr)
-    NB.fall(662, yr)
-    NR.draw(screen, br)
-    NG.draw(screen, bg)
-    NB.draw(screen, bb)
+    if not br:
+        yr += 0.5
+        if yr == SCREEN_HEIGHT:
+            NR.remove()
+            br = True
+            yr = 0
+        NR.fall(418, yr)
+        NR.draw(screen, br)
+
+    if not bg:
+        yg += 0.5  
+        if yg == SCREEN_HEIGHT:
+            NG.remove()
+            bg = True
+            yg = 0
+        NG.fall(540, yr)
+        NG.draw(screen, bg)
+
+    if not bb:
+        yb += 0.5
+        if yb == SCREEN_HEIGHT:
+            NB.remove()
+            bb = True
+            yb = 0
+        NB.fall(662, yr)
+        NB.draw(screen, bb)
+
     pygame.display.update()
