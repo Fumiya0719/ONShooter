@@ -1,6 +1,10 @@
 import pygame
 from pygame.locals import *
 import sys, random
+import math
+from screen import FixedScreen
+from notes import Notes
+import scores.score1 as map
 
 pygame.init() 
 
@@ -21,6 +25,7 @@ pygame.display.set_caption('ONShooter')
 # 色のデフォルト設定
 BLACK = (0,0,0)
 WHITE = (255,255,255)
+GRAY = (200,200,200)
 
 # ノーツデータ
 note_red = pygame.image.load('red.png')
@@ -32,10 +37,6 @@ note_blue = pygame.transform.scale(note_blue, (120, 40))
 
 def notes(note, x, y):
     screen.blit(note, (x, y))
-
-# 背景色
-bgc = (BLACK)
-screen.fill(bgc)
 
 # フォント設定
 font = pygame.font.SysFont('C:/Windows/Fonts/Yu Gothic UI', 30)
@@ -54,51 +55,71 @@ btn_red2 = pygame.K_j
 btn_green2 = pygame.K_k
 btn_blue2 = pygame.K_l
 
+# 楽曲関連の設定
+TITLE = map.TITLE
+BPM = map.BPM
+# notes per second
+NPM = (BPM / 60) / 1000
+clock = pygame.time.Clock()
+
 # ノーツの座標
-xr = 420
+xr = 418
 yr = 0
 xg = 540
 yg = 0
-xb = 660
+xb = 662
 yb = 0
 
 # 判定ライン
-judge_line = 600
-judge_point = judge_line - 40
+judge_point = 560
 
 score = 0
+SCREEN = FixedScreen()
+NR = Notes('red.png')
+NG = Notes('green.png')
+NB = Notes('blue.png')
+br = False
+bg = False
+bb = False
+
+# スコア表示
 running = True
 while running:
-    # 背景の設定
-    screen.fill(BLACK)
-    # 判定ラインの設定
-    pygame.draw.line(screen, WHITE, (0,judge_line), (1200,judge_line), 5)
+    SCREEN.draw(screen, 600, SCREEN_HEIGHT)
 
     message = font.render('score: ' + str(score), False, WHITE)
-    screen.blit(message, (20,20))
+    screen.blit(message, (20,20)) 
 
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
 
         # ボタンが押された時の処理
-        if event.type == pygame.KEYDOWN:
-            if event.key == btn_red1 or event.key == btn_red2:
+        if event.type == pygame.KEYDOWN:          
+            if not br and event.key == btn_red1 or event.key == btn_red2:
+                if judge_point - 60 < yr and yr < judge_point + 60:
+                    score += 1
+                    br = True
+                    NR.remove()
                 if judge_point - 20 < yr and yr < judge_point + 20:
-                    score += 2
-                elif judge_point - 60 < yr and yr < judge_point + 60:
                     score += 1
-            elif event.key == btn_green1 or event.key == btn_green2:
+
+            elif not bg and event.key == btn_green1 or event.key == btn_green2:
+                if judge_point - 60 < yg and yg < judge_point + 60:
+                    score += 1
+                    bg = True
+                    NG.remove()
                 if judge_point - 20 < yg and yg < judge_point + 20:
-                    score += 2
-                elif judge_point - 60 < yg and yg < judge_point + 60:
                     score += 1
-            elif event.key == btn_blue1 or event.key == btn_blue2:
+
+            elif not bb and event.key == btn_blue1 or event.key == btn_blue2:
+                if judge_point - 60 < yb and yb < judge_point + 60:
+                    score += 1
+                    bb = True
+                    NB.remove()
                 if judge_point - 20 < yb and yb < judge_point + 20:
-                    score += 2
-                elif judge_point - 60 < yb and yb < judge_point + 60:
                     score += 1
-                
+      
     yr += 0.5
     yg += 0.5
     yb += 0.5
@@ -108,7 +129,10 @@ while running:
         yg = 0
     if yb == SCREEN_HEIGHT:
         yb = 0
-    notes(note_red, xr, yr)
-    notes(note_green, xg, yg)
-    notes(note_blue, xb, yb)
+    NR.fall(418, yr)
+    NG.fall(540, yr)
+    NB.fall(662, yr)
+    NR.draw(screen, br)
+    NG.draw(screen, bg)
+    NB.draw(screen, bb)
     pygame.display.update()
