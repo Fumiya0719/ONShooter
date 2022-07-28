@@ -60,15 +60,6 @@ TITLE = map.TITLE
 BPM = map.BPM
 # notes per second
 NPM = (BPM / 60) / 1000
-clock = pygame.time.Clock()
-
-# ノーツの座標
-xr = 418
-yr = 0
-xg = 540
-yg = 0
-xb = 662
-yb = 0
 
 # 判定ライン
 judge_point = 560
@@ -81,6 +72,9 @@ NB = Notes('blue.png')
 br = False
 bg = False
 bb = False
+yr = 0
+yg = 0
+yb = 0
 
 # スコア表示
 running = True
