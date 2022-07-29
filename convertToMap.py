@@ -62,6 +62,3 @@ def convertToMap(file):
                     MAP['score'].append(note.makeNote())
             
     return MAP
-
-MAP = convertToMap('scores/score1.txt')
-print(pprint.pprint(MAP['score']))

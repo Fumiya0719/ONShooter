@@ -28,7 +28,13 @@ class Notes(pygame.sprite.Sprite):
         self.offset = offset
 
     def makeNote(self):
-        return [self.note, self.noteType, self.x, self.y, self.offset]
+        return {
+            'note': self.note,
+            'note_type': self.noteType,
+            'x': self.x,
+            'y': self.y,
+            'offset': self.offset
+        }
 
 
         

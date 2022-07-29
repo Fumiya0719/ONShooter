@@ -1,10 +1,8 @@
-import pygame
+import pygame, sys, random, math, time, pprint
 from pygame.locals import *
-import sys, random
-import math
 from screen import FixedScreen
-from notes import Notes
-import time
+import convertToMap
+import readMap
 
 pygame.init() 
 
@@ -19,11 +17,6 @@ font = pygame.font.SysFont('C:/Windows/Fonts/Yu Gothic UI', 30)
 
 pygame.display.set_caption('ONShooter')
 
-# 色のデフォルト設定
-BLACK = (0,0,0)
-WHITE = (255,255,255)
-GRAY = (200,200,200)
-
 """
 操作設定
 """
@@ -31,13 +24,11 @@ keyR = [pygame.K_s, pygame.K_j]
 keyG = [pygame.K_d, pygame.K_k]
 keyB = [pygame.K_f, pygame.K_l]
 
-# 楽曲関連の設定
-SF = open('scores/score1.txt', 'r')
-TITLE = SF.readline()
-bpm = int(SF.readline())
-mapData = SF.readlines()
-print(mapData)
-sys.exit()
+# 譜面データの読み込み
+MAP = convertToMap.convertToMap('scores/score1.txt')
+# 譜面データから譜面本体を書き出す
+SCORE = readMap.readMap(MAP['score'])
+print(pprint.pprint(SCORE))
 
 # 判定ライン
 judge_point = 560
