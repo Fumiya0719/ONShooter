@@ -2,22 +2,33 @@ import pygame
 from pygame.locals import *
 
 class Notes(pygame.sprite.Sprite):
-    def __init__(self, file):
+    # ノーツの定義
+    def __init__(self, file, x, y, offset):
         pygame.sprite.Sprite.__init__(self)
+
+        # ノーツの色の判定
+        if file == 'red.png':
+            self.noteType = 'red'
+        elif file == 'green.png':
+            self.noteType = 'green'
+        elif file == 'blue.png':
+            self.noteType = 'blue'
 
         # ノーツ画像の読み込み
         self.note = pygame.image.load(file)
 
         # ノーツ画像のリサイズ
-        self.note = pygame.transform.scale(self.note, (120, 40))
+        self.note = pygame.transform.scale(self.note, (120, 20))
 
-    # ノーツの落下
-    def fall(self, x, y):
-        self.noteX = x
-        self.noteY = y
+        # 初期位置の座標設定
+        self.x = x
+        self.y = y
 
-    def draw(self, screen, beated):
-        if not beated:
-            screen.blit(self.note, (self.noteX, self.noteY))
+        # 表示するタイミング
+        self.offset = offset
+
+    def makeNote(self):
+        return [self.note, self.noteType, self.x, self.y, self.offset]
+
 
         
