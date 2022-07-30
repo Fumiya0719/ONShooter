@@ -4,7 +4,7 @@ from notes import Notes
 from decimal import *
 import pprint
 
-def convertToMap(file):
+def convertToMap(file, judge_point):
     MAP = {}
 
     FILE = open(file, 'r')
@@ -55,7 +55,10 @@ def convertToMap(file):
                         x = 662
 
                     # オフセット
-                    offset = timing + beat * j
+                    offset = (timing + beat * j) + 1000
+                    # 判定ラインとHS設定からオフセットを表示するタイミングに更新
+                    offset = offset - Decimal(judge_point)
+                    print(offset)
 
                     # ノーツの生成
                     note = Notes(file, x, 0, offset.quantize(Decimal('1.0000')))

@@ -25,8 +25,9 @@ class Notes(pygame.sprite.Sprite):
         self.x = x
         self.y = y
 
-        # 表示するタイミング
-        self.offset = offset + Decimal(500)
+        # not(表示するタイミング)
+        # 判定ラインに重なるタイミング
+        self.offset = offset
 
     def makeNote(self):
         return {
