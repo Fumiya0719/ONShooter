@@ -41,6 +41,8 @@ running = True
 outNote = True
 disp_notes = []
 st_time = Decimal(time.perf_counter()).quantize(Decimal('1.0000'))
+offset = next(iter(SCORE))
+notes = SCORE.pop(offset)
 # ゲームの起動
 while running:
     SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
@@ -51,32 +53,31 @@ while running:
     nt = font.render('time: ' + str(nowtime), False, Colors.WHITE)
     screen.blit(nt, (20, 60))
 
-    # ノーツデータのキー値と経過時間が一致したノーツを出力
-    if outNote:
-        outNote = False
-        offset = next(iter(SCORE))
-        notes = SCORE.pop(offset)
-
-    # ノーツのオフセットが経過時間(-1秒)になったらノーツを表示 
-    # 表示中のノーツ
-    if not outNote and (nowtime - Decimal('1.0000')) > Decimal(offset):
+    # ノーツのオフセットが経過時間になったら該当ノーツを表示キューに挿入
+    if outNote and nowtime > Decimal(offset):
         for note in notes:
             disp_notes.append(note)
 
-        outNote = True
+        if SCORE:
+            offset = next(iter(SCORE))
+            notes = SCORE.pop(offset)
+        else:
+            outNote = False
 
-    # pprint.pprint(disp_notes)
+    # ノーツの表示と移動
+    if disp_notes:
+        pprint.pprint(disp_notes)
+        for i, note in enumerate(disp_notes):
+            dn = DispNotes(note['note'], note['x'], note['y'])
+            dn.draw(screen)
+            note['y'] += 0.6
+
+            if note['y'] > SCREEN_HEIGHT:
+                del disp_notes[i]
+
     for event in pygame.event.get():
         if event.type == QUIT:
             running = False
-
-    for i, note in enumerate(disp_notes):
-        dn = DispNotes(note['note'], note['x'], note['y'])
-        dn.draw(screen)
-        disp_notes[i]['y'] += 0.5
-
-        if disp_notes[i]['y'] > SCREEN_HEIGHT:
-            del disp_notes[i]
 
     pygame.display.update() 
 

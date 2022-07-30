@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from decimal import *
 
 class Notes(pygame.sprite.Sprite):
     # ノーツの定義
@@ -25,7 +26,7 @@ class Notes(pygame.sprite.Sprite):
         self.y = y
 
         # 表示するタイミング
-        self.offset = offset
+        self.offset = offset + Decimal(500)
 
     def makeNote(self):
         return {
