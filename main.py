@@ -25,7 +25,7 @@ pygame.display.set_caption('ONShooter')
 操作設定
 """
 # ハイスピード設定
-speed = 2
+speed = 1
 # キーコンフィグ
 keyR = [pygame.K_s, pygame.K_j]
 keyG = [pygame.K_d, pygame.K_k]
@@ -50,8 +50,10 @@ st_time = Decimal(time.perf_counter()).quantize(Decimal('1.0000'))
 disp_notes = []
 offset = next(iter(SCORE))
 notes = SCORE.pop(offset)
+clock = pygame.time.Clock()
 # ゲームの起動
 while running:
+    # clock.tick(240)
     SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
 
     pass_time = Decimal(time.perf_counter()).quantize(Decimal('1.0000'))
@@ -96,7 +98,7 @@ while running:
             if event.key in keyB:
                 break
 
-    pygame.time.wait(1)
+    pygame.time.delay(1)
     pygame.display.update() 
 
 
