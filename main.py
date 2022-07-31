@@ -38,33 +38,33 @@ JUDGE_GR = 66.66
 JUDGE_OK = 100
 
 # 譜面データの読み込み
-MAP = convertToMap.convertToMap('scores/score1.txt', judge_point)
+MAP = convertToMap.convertToMap('scores/score1.txt')
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
+# print(SCORE)
 # sys.exit()
 
 SCREEN = FixedScreen()
 running = True
 outNote = True
-st_time = Decimal(time.perf_counter()).quantize(Decimal('1.0000'))
+st_time = pygame.time.get_ticks()
 disp_notes = []
 offset = next(iter(SCORE))
 notes = SCORE.pop(offset)
-clock = pygame.time.Clock()
 # ゲームの起動
 while running:
-    # clock.tick(240)
     SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
 
-    pass_time = Decimal(time.perf_counter()).quantize(Decimal('1.0000'))
-    nowtime = (pass_time - st_time) * 1000
+    pass_time = pygame.time.get_ticks()
+    nowtime = pass_time - st_time
 
     nt = font.render('time: ' + str(nowtime), False, Colors.WHITE)
     screen.blit(nt, (20, 60))
 
     # ノーツのオフセットが経過時間になったら該当ノーツを表示キューに挿入
-    if outNote and nowtime > Decimal(offset):
+    if outNote and nowtime >= offset:
         for note in notes:
+            note['st_time'] = nowtime
             disp_notes.append(note)
 
         if SCORE:
@@ -77,11 +77,11 @@ while running:
     if disp_notes:
         for i, note in enumerate(disp_notes):
             if note['y'] == judge_point:
-                print(nowtime)
+                print(nowtime)    
 
             dn = DispNotes(note['note'], note['x'], note['y'])
             dn.draw(screen)
-            note['y'] += 1 * speed
+            note['y'] = nowtime - note['st_time']
 
             if note['y'] > SCREEN_HEIGHT:
                 del disp_notes[i]
@@ -98,7 +98,6 @@ while running:
             if event.key in keyB:
                 break
 
-    pygame.time.delay(1)
     pygame.display.update() 
 
 

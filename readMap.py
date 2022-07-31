@@ -9,7 +9,7 @@ def readMap(score):
 
     # scoreに登録されているノーツをオフセット毎に分類
     for note in score:
-        offset = str(note['offset'])
+        offset = note['offset']
 
         note = {
             'note': note['note'],
