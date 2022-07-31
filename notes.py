@@ -16,7 +16,7 @@ class Notes(pygame.sprite.Sprite):
             self.noteType = 'blue'
 
         # ノーツ画像の読み込み
-        self.note = pygame.image.load(file)
+        self.note = pygame.image.load('images/' + file)
 
         # ノーツ画像のリサイズ
         self.note = pygame.transform.scale(self.note, (120, 20))
