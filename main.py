@@ -57,7 +57,7 @@ while running:
 
     pt = font.render('score: ' + str(point), False, Colors.WHITE)
     screen.blit(pt, (20, 40))
-    nt = font.render('time: ' + str(nowtime), False, Colors.WHITE)
+    nt = font.render('time: ' + str(round(nowtime / 1000, 2)), False, Colors.WHITE)
     screen.blit(nt, (20, 60))
 
     # ノーツのオフセットが経過時間になったら該当ノーツを表示キューに挿入
