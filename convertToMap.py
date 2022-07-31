@@ -4,7 +4,7 @@ from notes import Notes
 from decimal import *
 import pprint
 
-def convertToMap(file, judge_point = 600):
+def convertToMap(file, speed, judge_point):
     MAP = {}
 
     FILE = open(file, 'r')
@@ -55,7 +55,7 @@ def convertToMap(file, judge_point = 600):
                         x = 662
 
                     # オフセット
-                    offset = (timing + beat * j) + (1000 - judge_point)
+                    offset = (timing + beat * j) + (1500 - (judge_point / speed))
                     offset = round(offset)
                     print(offset)
 

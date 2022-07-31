@@ -1,5 +1,6 @@
 import pygame, sys, pprint
 from pygame.locals import *
+from decimal import *
 from screen import FixedScreen
 from colors import Colors
 from dispNotes import DispNotes
@@ -33,7 +34,7 @@ keyB = [pygame.K_f, pygame.K_l]
 judge_point = 600
 
 # 譜面データの読み込み
-MAP = convertToMap.convertToMap('scores/score1.txt')
+MAP = convertToMap.convertToMap('scores/score1.txt', Decimal(speed), judge_point)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
 # print(SCORE)
@@ -76,7 +77,7 @@ while running:
         for i, note in enumerate(disp_notes):
             dn = DispNotes(note['note'], note['x'], note['y'])
             dn.draw(screen)
-            note['y'] = nowtime - note['st_time']
+            note['y'] = round((nowtime - note['st_time']) * Decimal(speed))
 
             if note['y'] > SCREEN_HEIGHT:
                 del disp_notes[i]
