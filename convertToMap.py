@@ -10,6 +10,7 @@ def convertToMap(file, speed, judge_point):
     FILE = open(file, 'r')
     title = FILE.readline()
     bpm = FILE.readline()
+    start = Decimal(FILE.readline())
     title = title.rstrip('\n')
     bpm = Decimal(bpm.rstrip('\n'))
 
@@ -55,7 +56,7 @@ def convertToMap(file, speed, judge_point):
                         x = 662
 
                     # オフセット
-                    offset = (timing + beat * j) + (1500 - (judge_point / speed))
+                    offset = (timing + beat * j) + (judge_point / speed) + start
                     offset = round(offset)
 
                     # ノーツの生成
