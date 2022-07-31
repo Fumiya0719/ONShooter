@@ -23,6 +23,8 @@ pygame.display.set_caption('ONShooter')
 """
 操作設定
 """
+# 楽曲設定
+MAPNAME = 'score1'
 # ハイスピード設定
 speed = 1
 # キーコンフィグ
@@ -34,7 +36,8 @@ keyB = [pygame.K_f, pygame.K_l]
 judge_point = 600
 
 # 譜面データの読み込み
-MAP = convertToMap.convertToMap('scores/score1.txt', Decimal(speed), judge_point)
+MAPLINK = 'scores/' + MAPNAME + '/' + MAPNAME + '.txt'
+MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
 # print(SCORE)
