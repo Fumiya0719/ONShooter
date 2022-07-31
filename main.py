@@ -73,10 +73,12 @@ while running:
     pass_time = pygame.time.get_ticks()
     nowtime = pass_time - st_time
 
+    tl = font.render('title: ' + MAPNAME, False, Colors.WHITE)
+    screen.blit(tl, (20, 40))
     pt = font.render('score: ' + str(point), False, Colors.WHITE)
-    screen.blit(pt, (20, 40))
+    screen.blit(pt, (20, 60))
     nt = font.render('time: ' + str(round(nowtime / 1000, 2)), False, Colors.WHITE)
-    screen.blit(nt, (20, 60))
+    screen.blit(nt, (20, 80))
 
     # ノーツのオフセットが経過時間になったら該当ノーツを表示キューに挿入
     if outNote and nowtime >= offset:
