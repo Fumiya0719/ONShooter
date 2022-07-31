@@ -1,8 +1,5 @@
-# import pygame
-# from pygame.locals import *
 from notes import Notes
 from decimal import *
-import pprint
 
 def convertToMap(file, speed, judge_point):
     MAP = {}
