@@ -1,9 +1,7 @@
-import pygame, sys, random, math, time, pprint
+import pygame, sys, pprint
 from pygame.locals import *
-from decimal import *
 from screen import FixedScreen
 from colors import Colors
-from notes import Notes
 from dispNotes import DispNotes
 import convertToMap
 import readMap
@@ -15,7 +13,7 @@ pygame.init()
 """
 # 画面サイズ
 SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 675
+SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 font = pygame.font.SysFont('C:/Windows/Fonts/Yu Gothic UI', 30)
 
@@ -33,9 +31,6 @@ keyB = [pygame.K_f, pygame.K_l]
 
 # 判定ライン・判定幅
 judge_point = 600
-JUDGE_PF = 33.33
-JUDGE_GR = 66.66
-JUDGE_OK = 100
 
 # 譜面データの読み込み
 MAP = convertToMap.convertToMap('scores/score1.txt')
@@ -47,6 +42,7 @@ SCORE = readMap.readMap(MAP['score'])
 SCREEN = FixedScreen()
 running = True
 outNote = True
+point = 0
 st_time = pygame.time.get_ticks()
 disp_notes = []
 offset = next(iter(SCORE))
@@ -58,6 +54,8 @@ while running:
     pass_time = pygame.time.get_ticks()
     nowtime = pass_time - st_time
 
+    pt = font.render('score: ' + str(point), False, Colors.WHITE)
+    screen.blit(pt, (20, 40))
     nt = font.render('time: ' + str(nowtime), False, Colors.WHITE)
     screen.blit(nt, (20, 60))
 
@@ -76,9 +74,6 @@ while running:
     # ノーツの表示と移動
     if disp_notes:
         for i, note in enumerate(disp_notes):
-            if note['y'] == judge_point:
-                print(nowtime)    
-
             dn = DispNotes(note['note'], note['x'], note['y'])
             dn.draw(screen)
             note['y'] = nowtime - note['st_time']
@@ -90,13 +85,19 @@ while running:
         if event.type == QUIT:
             running = False
         # キーが押された際の処理
-        if event.type == pygame.KEYDOWN:
-            if event.key in keyR:
-                break
-            if event.key in keyG:
-                break
-            if event.key in keyB:
-                break
+        if event.type == pygame.KEYDOWN and notes:
+            for i, note in enumerate(disp_notes):
+                if  ((event.key in keyR and note['note_type'] == 'red') or 
+                    (event.key in keyG and note['note_type'] == 'green') or 
+                    (event.key in keyB and note['note_type'] == 'blue')):
+                    if judge_point - 100 <= note['y'] and note['y'] <= judge_point + 100:
+                        point += 1
+                        if judge_point - 66 <= note['y'] and note['y'] <= judge_point + 66:
+                            point += 1
+                        if judge_point - 33 <= note['y'] and note['y'] <= judge_point + 33:
+                            point += 1    
+                        dn.remove()
+                        del disp_notes[i]
 
     pygame.display.update() 
 
