@@ -43,6 +43,16 @@ SCORE = readMap.readMap(MAP['score'])
 # print(SCORE)
 # sys.exit()
 
+# 初期画面(キー入力があった場合ゲーム本体へ遷移)
+press_anykey = False
+while not press_anykey:
+    text = font.render('ONShooter Press any Key', False, Colors.WHITE)
+    screen.blit(text, (20, 40))
+    for event in pygame.event.get():
+        if event.type == pygame.KEYDOWN:
+            press_anykey = True
+    pygame.display.update()
+
 SCREEN = FixedScreen()
 running = True
 outNote = True
