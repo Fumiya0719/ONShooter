@@ -1,4 +1,4 @@
-import pygame, sys, pprint
+import pygame, os, sys, pprint
 from pygame.locals import *
 from decimal import *
 from screen import FixedScreen
@@ -63,10 +63,11 @@ disp_notes = []
 offset = next(iter(SCORE))
 notes = SCORE.pop(offset)
 # ゲームの起動
-pygame.mixer.init()
-pygame.mixer.music.load(AUDIO)
-pygame.mixer.music.play(1)
-pygame.mixer.music.set_volume(0.2)
+if os.path.isfile(AUDIO):
+    pygame.mixer.init()
+    pygame.mixer.music.load(AUDIO)
+    pygame.mixer.music.play(1)
+    pygame.mixer.music.set_volume(0.2)
 while running:
     SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
 
@@ -104,7 +105,8 @@ while running:
 
     for event in pygame.event.get():
         if event.type == QUIT:
-            pygame.mixer.music.stop()
+            if os.path.isfile(AUDIO):
+                pygame.mixer.music.stop()
             running = False
         # キーが押された際の処理
         if event.type == pygame.KEYDOWN and notes:
