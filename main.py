@@ -26,7 +26,7 @@ pygame.display.set_caption('ONShooter')
 # 楽曲設定
 MAPNAME = 'score1'
 # ハイスピード設定
-speed = 1
+speed = 0.8
 # キーコンフィグ
 keyR = [pygame.K_s, pygame.K_j]
 keyG = [pygame.K_d, pygame.K_k]
@@ -35,9 +35,13 @@ keyB = [pygame.K_f, pygame.K_l]
 # 判定ライン・判定幅
 judge_point = 600
 
+# ノーツの大きさ
+note_sizex = 98
+note_sizey = 20
+
 # 譜面データの読み込み
 MAPLINK = 'scores/' + MAPNAME + '/' + MAPNAME + '.txt'
-MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point)
+MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point, note_sizex, note_sizey)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
 # print(SCORE)
@@ -53,7 +57,7 @@ offset = next(iter(SCORE))
 notes = SCORE.pop(offset)
 # ゲームの起動
 while running:
-    SCREEN.draw(screen, judge_point + 20, SCREEN_WIDTH, SCREEN_HEIGHT)
+    SCREEN.draw(screen, judge_point + 20, SCREEN_WIDTH, SCREEN_HEIGHT, 98)
 
     pass_time = pygame.time.get_ticks()
     nowtime = pass_time - st_time
