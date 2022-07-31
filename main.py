@@ -53,7 +53,7 @@ offset = next(iter(SCORE))
 notes = SCORE.pop(offset)
 # ゲームの起動
 while running:
-    SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
+    SCREEN.draw(screen, judge_point + 20, SCREEN_WIDTH, SCREEN_HEIGHT)
 
     pass_time = pygame.time.get_ticks()
     nowtime = pass_time - st_time

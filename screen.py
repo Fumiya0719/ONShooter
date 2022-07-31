@@ -7,14 +7,21 @@ class FixedScreen(pygame.sprite.Sprite, Colors):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
 
-    def draw(self, screen, judge_line, y):
+    def draw(self, screen, judge_line, x, y):
         screen.fill(Colors.BLACK)
 
-        # 判定ラインの設定
-        pygame.draw.line(screen, Colors.WHITE, (416,judge_line), (782,judge_line), 5)
         # 譜面ラインの設定
-        pygame.draw.line(screen, Colors.GRAY, (416, 0), (416, y), 2)
-        pygame.draw.line(screen, Colors.GRAY, (538, 0), (538, y), 2)
-        pygame.draw.line(screen, Colors.GRAY, (660, 0), (660, y), 2)
-        pygame.draw.line(screen, Colors.GRAY, (782, 0), (782, y), 2)   
+        xl = 233
+        # for i in range(6):
+        #     xl += 122 * i
+        #     pygame.draw.line(screen, Colors.GRAY, (xl, 0), (xl, y), 2)
+        pygame.draw.line(screen, Colors.GRAY, (233, 0), (233, y), 2)
+        pygame.draw.line(screen, Colors.GRAY, (355, 0), (355, y), 2)
+        pygame.draw.line(screen, Colors.GRAY, (477, 0), (477, y), 2)
+        pygame.draw.line(screen, Colors.GRAY, (599, 0), (599, y), 2)   
+        pygame.draw.line(screen, Colors.GRAY, (721, 0), (721, y), 2)   
+        pygame.draw.line(screen, Colors.GRAY, (843, 0), (843, y), 2)   
+        pygame.draw.line(screen, Colors.GRAY, (965, 0), (965, y), 2)   
         
+        # 判定ラインの設定
+        pygame.draw.line(screen, Colors.WHITE, (233,judge_line), (965,judge_line), 5)
