@@ -57,7 +57,6 @@ def convertToMap(file, speed, judge_point):
                     # オフセット
                     offset = (timing + beat * j) + (1500 - (judge_point / speed))
                     offset = round(offset)
-                    print(offset)
 
                     # ノーツの生成
                     note = Notes(file, x, 0, offset)
