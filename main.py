@@ -25,6 +25,7 @@ pygame.display.set_caption('ONShooter')
 """
 # 楽曲設定
 MAPNAME = 'score1'
+AUDIO = 'scores/' + MAPNAME + '/audio.mp3'
 # ハイスピード設定
 speed = 1
 # キーコンフィグ
@@ -40,7 +41,7 @@ MAPLINK = 'scores/' + MAPNAME + '/' + MAPNAME + '.txt'
 MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
-# print(SCORE)
+# pprint.pprint(SCORE)
 # sys.exit()
 
 # 初期画面(キー入力があった場合ゲーム本体へ遷移)
@@ -62,6 +63,10 @@ disp_notes = []
 offset = next(iter(SCORE))
 notes = SCORE.pop(offset)
 # ゲームの起動
+pygame.mixer.init()
+pygame.mixer.music.load(AUDIO)
+pygame.mixer.music.play(1)
+pygame.mixer.music.set_volume(0.2)
 while running:
     SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
 
@@ -97,6 +102,7 @@ while running:
 
     for event in pygame.event.get():
         if event.type == QUIT:
+            pygame.mixer.music.stop()
             running = False
         # キーが押された際の処理
         if event.type == pygame.KEYDOWN and notes:
