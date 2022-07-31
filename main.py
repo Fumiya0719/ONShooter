@@ -123,7 +123,4 @@ while running:
                         dn.remove()
                         del disp_notes[i]
 
-    pygame.display.update() 
-
-
-            
+    pygame.display.update()            
