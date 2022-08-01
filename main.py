@@ -41,7 +41,7 @@ MAPLINK = 'scores/' + MAPNAME + '/' + MAPNAME + '.txt'
 MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
-# pprint.pprint(SCORE)
+# pprint.pprint(MAP)
 # sys.exit()
 
 # 初期画面(キー入力があった場合ゲーム本体へ遷移)
