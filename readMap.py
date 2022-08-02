@@ -1,7 +1,3 @@
-from unicodedata import decimal
-import pygame, sys, math, time
-from pygame.locals import *
-
 # 譜面データ(Score)を音ゲーとして出力できる形式に変換する
 def readMap(score):
 

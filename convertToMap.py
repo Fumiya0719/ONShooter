@@ -1,8 +1,5 @@
-# import pygame
-# from pygame.locals import *
 from notes import Notes
 from decimal import *
-import pprint
 
 def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
     MAP = {}
@@ -10,6 +7,7 @@ def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
     FILE = open(file, 'r')
     title = FILE.readline()
     bpm = FILE.readline()
+    start = Decimal(FILE.readline())
     title = title.rstrip('\n')
     bpm = Decimal(bpm.rstrip('\n'))
 
@@ -65,7 +63,7 @@ def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
                         x = note_xo + (note_sizex + 2) * 5
 
                     # オフセット
-                    offset = (timing + beat * j) + (1500 - (judge_point / speed))
+                    offset = (timing + beat * j) + (judge_point / speed) + start
                     offset = round(offset)
 
                     # ノーツの生成
