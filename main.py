@@ -35,15 +35,12 @@ keyG = [pygame.K_d, pygame.K_k]
 keyB = [pygame.K_f, pygame.K_l]
 
 # 判定ライン・判定幅
-judge_point = 600
-
-# ノーツの大きさ
-note_sizex = 98
-note_sizey = 20
+SCREEN = Field()
+judge_point = SCREEN.setData(screen, SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # 譜面データの読み込み
 MAPLINK = 'scores/' + MAPNAME + '/' + MAPNAME + '.txt'
-MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point, note_sizex, note_sizey)
+MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point, SCREEN_WIDTH, SCREEN_HEIGHT)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
 # pprint.pprint(MAP)
@@ -59,8 +56,6 @@ while not press_anykey:
             press_anykey = True
     pygame.display.update()
 
-SCREEN = Field()
-SCREEN.setData(screen, SCREEN_WIDTH, SCREEN_HEIGHT)
 SCREEN.draw(screen)
 pygame.display.update()
 pygame.time.wait(2000)

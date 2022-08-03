@@ -53,6 +53,7 @@ class Field(pygame.sprite.Sprite, Colors):
                 xs = self.field_st_st - round((self.field_scale_st * 2  / self.y) * i)
                 xe = self.field_ed_st + round((self.field_scale_st * 2 / self.y) * i)
                 self.lines.append([(xs, i), (xe, i)])
+                
         return self.judge_line
 
     # フィールドの描画

@@ -1,7 +1,7 @@
 from notes import Notes
 from decimal import *
 
-def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
+def convertToMap(file, speed, judge_point, screen_width, screen_height):
     MAP = {}
 
     FILE = open(file, 'r')
@@ -14,6 +14,8 @@ def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
     MAP['title'] = title
     MAP['bpm'] = bpm
     MAP['score'] = []
+
+    # ノーツの大きさ
 
     # 譜面データをノーツデータに変換
     timing = 0
@@ -35,7 +37,7 @@ def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
             beat = Decimal(60 * 1000 / bpm) / Decimal(noteInterval / 4) 
 
             # ノーツの追加処理
-            note_xo = 290
+            # note_xo = 290
             for j, d in enumerate(data):
                 # 値が1の場合、ノーツを追加する
                 if d == '1':
@@ -45,22 +47,17 @@ def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
                     row = i % 7
                     if row == 0:
                         file = 'red.png'
-                        x = note_xo
                     elif row == 1:
                         file = 'green.png'
-                        x = note_xo + (note_sizex + 2) * 1
+                        # x = note_xo + (note_sizex + 2) * 1
                     elif row == 2:
                         file = 'blue.png'
-                        x = note_xo + (note_sizex + 2) * 2
                     elif row == 3:
                         file = 'red.png'
-                        x = note_xo + (note_sizex + 2) * 3
                     elif row == 4:
                         file = 'green.png'
-                        x = note_xo + (note_sizex + 2) * 4
                     elif row == 5:
                         file = 'blue.png'
-                        x = note_xo + (note_sizex + 2) * 5
 
                     # オフセット
                     offset = (timing + beat * j) + (judge_point / speed) + start
