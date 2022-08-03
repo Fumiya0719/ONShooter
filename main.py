@@ -36,17 +36,6 @@ keyR = [pygame.K_s, pygame.K_j]
 keyG = [pygame.K_d, pygame.K_k]
 keyB = [pygame.K_f, pygame.K_l]
 
-# 判定ライン・判定幅
-SCREEN = Field()
-judge_point = SCREEN.setData(screen, SCREEN_WIDTH, SCREEN_HEIGHT)
-
-# 譜面データの読み込み
-MAP = convertToMap.convertToMap(score1.MAPDATA, Decimal(speed), judge_point, SCREEN_WIDTH, SCREEN_HEIGHT)
-# 譜面データから譜面本体(ノーツデータ)を書き出す
-SCORE = readMap.readMap(MAP['score'])
-pprint.pprint(SCORE)
-sys.exit()
-
 # 初期画面(キー入力があった場合ゲーム本体へ遷移)
 press_anykey = False
 while not press_anykey:
@@ -57,13 +46,21 @@ while not press_anykey:
             press_anykey = True
     pygame.display.update()
 
-SCREEN.draw(screen)
-pygame.display.update()
-pygame.time.wait(2000)
-sys.exit()
-SCREEN = FixedScreen()
+# 判定ライン・判定幅
+SCREEN = Field(screen, SCREEN_WIDTH, SCREEN_HEIGHT)
+field_data = SCREEN.setData()
+
+# 譜面データの読み込み
+MAP = convertToMap.convertToMap(score1.MAPDATA, Decimal(speed), field_data)
+# 譜面データから譜面本体(ノーツデータ)を書き出す
+SCORE = readMap.readMap(MAP['score'], field_data)
+pprint.pprint(SCORE)
+# pprint.pprint(field_data)
+# sys.exit()
+
 running = True
 outNote = True
+judge_point = field_data['judge_point']
 point = 0
 st_time = pygame.time.get_ticks()
 disp_notes = []
@@ -76,7 +73,7 @@ if os.path.isfile(AUDIO):
     pygame.mixer.music.play(1)
     pygame.mixer.music.set_volume(0.2)
 while running:
-    SCREEN.draw(screen, judge_point + 20, SCREEN_WIDTH, SCREEN_HEIGHT, 98)
+    SCREEN.draw(screen)
 
     pass_time = pygame.time.get_ticks()
     nowtime = pass_time - st_time
@@ -107,7 +104,7 @@ while running:
             dn.draw(screen)
             note['y'] = round((nowtime - note['st_time']) * Decimal(speed))
 
-            if note['y'] > judge_point + 100:
+            if note['y'] > SCREEN_HEIGHT:
                 del disp_notes[i]
 
     for event in pygame.event.get():

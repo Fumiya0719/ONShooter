@@ -1,5 +1,5 @@
 # 譜面データ(Score)を音ゲーとして出力できる形式に変換する
-def readMap(score):
+def readMap(score, field_data):
 
     arr = {}
 

@@ -9,7 +9,7 @@ class DispNotes(pygame.sprite.Sprite):
         self.note = note
 
         self.rect = note.get_rect()
-        self.rect.center = ((x + x + 120) / 2, y)
+        self.rect.center = (x, y)
 
     # ノーツの表示
     def draw(self, screen):
