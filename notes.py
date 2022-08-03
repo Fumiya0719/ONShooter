@@ -19,7 +19,7 @@ class Notes(pygame.sprite.Sprite):
         self.note = pygame.image.load('images/' + file)
 
         # ノーツ画像のリサイズ
-        self.note = pygame.transform.scale(self.note, (120, 20))
+        self.note = pygame.transform.scale(self.note, (98, 40))
 
         # 初期位置の座標設定
         self.x = x

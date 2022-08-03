@@ -27,7 +27,7 @@ pygame.display.set_caption('ONShooter')
 MAPNAME = 'score1'
 AUDIO = 'scores/' + MAPNAME + '/audio.mp3'
 # ハイスピード設定
-speed = 1
+speed = 0.8
 # キーコンフィグ
 keyR = [pygame.K_s, pygame.K_j]
 keyG = [pygame.K_d, pygame.K_k]
@@ -36,9 +36,13 @@ keyB = [pygame.K_f, pygame.K_l]
 # 判定ライン・判定幅
 judge_point = 600
 
+# ノーツの大きさ
+note_sizex = 98
+note_sizey = 20
+
 # 譜面データの読み込み
 MAPLINK = 'scores/' + MAPNAME + '/' + MAPNAME + '.txt'
-MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point)
+MAP = convertToMap.convertToMap(MAPLINK, Decimal(speed), judge_point, note_sizex, note_sizey)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'])
 # pprint.pprint(MAP)
@@ -69,7 +73,7 @@ if os.path.isfile(AUDIO):
     pygame.mixer.music.play(1)
     pygame.mixer.music.set_volume(0.2)
 while running:
-    SCREEN.draw(screen, judge_point + 20, SCREEN_HEIGHT)
+    SCREEN.draw(screen, judge_point + 20, SCREEN_WIDTH, SCREEN_HEIGHT, 98)
 
     pass_time = pygame.time.get_ticks()
     nowtime = pass_time - st_time
@@ -100,7 +104,7 @@ while running:
             dn.draw(screen)
             note['y'] = round((nowtime - note['st_time']) * Decimal(speed))
 
-            if note['y'] > SCREEN_HEIGHT:
+            if note['y'] > judge_point + 100:
                 del disp_notes[i]
 
     for event in pygame.event.get():
@@ -109,9 +113,9 @@ while running:
                 pygame.mixer.music.stop()
             running = False
         # キーが押された際の処理
-        if event.type == pygame.KEYDOWN and notes:
+        if event.type == pygame.KEYDOWN and disp_notes:
             for i, note in enumerate(disp_notes):
-                if  ((event.key in keyR and note['note_type'] == 'red') or 
+                if  ((event.key in keyR and note['note_type'] == 'red') or
                     (event.key in keyG and note['note_type'] == 'green') or 
                     (event.key in keyB and note['note_type'] == 'blue')):
                     if judge_point - 100 <= note['y'] and note['y'] <= judge_point + 100:
@@ -119,8 +123,9 @@ while running:
                         if judge_point - 66 <= note['y'] and note['y'] <= judge_point + 66:
                             point += 1
                         if judge_point - 33 <= note['y'] and note['y'] <= judge_point + 33:
-                            point += 1    
+                            point += 1   
                         dn.remove()
                         del disp_notes[i]
+                        break
 
     pygame.display.update()            
