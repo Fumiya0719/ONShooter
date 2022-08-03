@@ -1,7 +1,7 @@
 from notes import Notes
 from decimal import *
 
-def convertToMap(file, speed, judge_point):
+def convertToMap(file, speed, judge_point, note_sizex, note_sizey):
     MAP = {}
 
     FILE = open(file, 'r')
@@ -35,22 +35,32 @@ def convertToMap(file, speed, judge_point):
             beat = Decimal(60 * 1000 / bpm) / Decimal(noteInterval / 4) 
 
             # ノーツの追加処理
+            note_xo = 290
             for j, d in enumerate(data):
                 # 値が1の場合、ノーツを追加する
                 if d == '1':
                     # ノーツ色,初期座標の判定 
-                    # 行番を4で割った時の余りが↓
-                    # 0 = 赤, 1 = 緑, 2 = 青
-                    row = i % 4
+                    # 行番を6で割った時の余りが↓
+                    # 0 = 赤, 1 = 緑, 2 = 青, 3 = 赤, 4 = 緑, 5 = 青
+                    row = i % 7
                     if row == 0:
                         file = 'red.png'
-                        x = 418
+                        x = note_xo
                     elif row == 1:
                         file = 'green.png'
-                        x = 540
+                        x = note_xo + (note_sizex + 2) * 1
                     elif row == 2:
                         file = 'blue.png'
-                        x = 662
+                        x = note_xo + (note_sizex + 2) * 2
+                    elif row == 3:
+                        file = 'red.png'
+                        x = note_xo + (note_sizex + 2) * 3
+                    elif row == 4:
+                        file = 'green.png'
+                        x = note_xo + (note_sizex + 2) * 4
+                    elif row == 5:
+                        file = 'blue.png'
+                        x = note_xo + (note_sizex + 2) * 5
 
                     # オフセット
                     offset = (timing + beat * j) + (judge_point / speed) + start
