@@ -104,7 +104,7 @@ while running:
             dn.draw(screen)
             note['y'] = round((nowtime - note['st_time']) * Decimal(speed))
 
-            if note['y'] > SCREEN_HEIGHT:
+            if note['y'] > judge_point + 100:
                 del disp_notes[i]
 
     for event in pygame.event.get():
@@ -113,9 +113,9 @@ while running:
                 pygame.mixer.music.stop()
             running = False
         # キーが押された際の処理
-        if event.type == pygame.KEYDOWN and notes:
+        if event.type == pygame.KEYDOWN and disp_notes:
             for i, note in enumerate(disp_notes):
-                if  ((event.key in keyR and note['note_type'] == 'red') or 
+                if  ((event.key in keyR and note['note_type'] == 'red') or
                     (event.key in keyG and note['note_type'] == 'green') or 
                     (event.key in keyB and note['note_type'] == 'blue')):
                     if judge_point - 100 <= note['y'] and note['y'] <= judge_point + 100:
@@ -123,8 +123,9 @@ while running:
                         if judge_point - 66 <= note['y'] and note['y'] <= judge_point + 66:
                             point += 1
                         if judge_point - 33 <= note['y'] and note['y'] <= judge_point + 33:
-                            point += 1    
+                            point += 1   
                         dn.remove()
                         del disp_notes[i]
+                        break
 
     pygame.display.update()            
