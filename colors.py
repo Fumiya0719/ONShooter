@@ -11,3 +11,4 @@ class Colors():
     GREEN = (0,230,0)
     BLUE = (0,0,230)
     DGRAY = (30,30,30)
+    ORANGE = (255,120,0)
