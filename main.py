@@ -4,6 +4,7 @@ from decimal import *
 from screen import FixedScreen
 from colors import Colors
 from dispNotes import DispNotes
+from field import Field
 import convertToMap
 import readMap
 
@@ -58,6 +59,12 @@ while not press_anykey:
             press_anykey = True
     pygame.display.update()
 
+SCREEN = Field()
+SCREEN.setData(screen, SCREEN_WIDTH, SCREEN_HEIGHT)
+SCREEN.draw(screen)
+pygame.display.update()
+pygame.time.wait(2000)
+sys.exit()
 SCREEN = FixedScreen()
 running = True
 outNote = True

@@ -1,4 +1,4 @@
-import pygame
+import pygame,pprint
 from pygame.locals import *
 from colors import Colors
 from decimal import *
@@ -50,15 +50,15 @@ class Field(pygame.sprite.Sprite, Colors):
             if i == 0:
                 self.lines.append([(self.field_st_st, i), (self.field_ed_st, i)])
             else:
-                xs = self.field_st_st - round((self.field_scale_ed / self.y) * i)
-                xe = self.field_st_st + round((self.field_scale_ed / self.y) * i)
+                xs = self.field_st_st - round((self.field_scale_st * 2  / self.y) * i)
+                xe = self.field_ed_st + round((self.field_scale_st * 2 / self.y) * i)
                 self.lines.append([(xs, i), (xe, i)])
-
         return self.judge_line
 
     # フィールドの描画
     def draw(self, screen):
-        pygame.draw.aalines(screen, Colors.BLACK, True, self.lines)
+        for line in self.lines:
+            pygame.draw.aaline(screen, Colors.BLACK, line[0], line[1])            
         pygame.draw.line(screen, Colors.ORANGE, (self.field_st_jg, self.judge_line), (self.field_ed_jg, self.judge_line), 5)
 
         
