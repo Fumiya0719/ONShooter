@@ -4,7 +4,7 @@ from decimal import *
 
 class Notes(pygame.sprite.Sprite):
     # ノーツの定義
-    def __init__(self, file, x, y, offset):
+    def __init__(self, file, offset, x = False, y = False, ln = False, ex = False):
         pygame.sprite.Sprite.__init__(self)
 
         # ノーツの色の判定

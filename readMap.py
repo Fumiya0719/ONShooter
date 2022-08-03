@@ -11,7 +11,9 @@ def readMap(score):
             'note': note['note'],
             'note_type': note['note_type'],
             'x': note['x'],
-            'y': note['y']
+            'y': note['y'],
+            'ln': note['ln'],
+            'ex': note['ex']
         }   
 
         if not offset in arr:
