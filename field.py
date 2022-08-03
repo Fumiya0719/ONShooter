@@ -53,6 +53,10 @@ class Field(pygame.sprite.Sprite, Colors):
                     self.field_st_jg = xs
                     self.field_ed_jg = xe
                     self.field_scale_jg = xe - xs
+
+        # ノーツ画像のリサイズ値
+        self.note_resize_x = round(Decimal(self.field_scale_jg / 6.76 / 4))
+        self.note_resize_y = round(Decimal(self.field_scale_jg / 15.33 / 4))
                 
         return {
             'screen_width': self.x,
@@ -61,7 +65,12 @@ class Field(pygame.sprite.Sprite, Colors):
             'judge_line_scale': self.field_scale_jg,
             'st_line_st': self.field_st_st,
             'st_line_ed': self.field_ed_st,
-            'st_line_scale': self.field_ed_st - self.field_st_st
+            'st_line_scale': self.field_ed_st - self.field_st_st,
+            'ed_line_st': self.field_st_ed,
+            'ed_line_ed': self.field_ed_ed,
+            'ed_line_scale': self.field_ed_ed - self.field_st_ed,
+            'note_sizex': self.note_resize_x,
+            'note_sizey': self.note_resize_y,
         }
 
     # フィールドの描画

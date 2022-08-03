@@ -100,7 +100,7 @@ while running:
     # ノーツの表示と移動
     if disp_notes:
         for i, note in enumerate(disp_notes):
-            dn = DispNotes(note['note'], note['x'], note['y'])
+            dn = DispNotes(note['note'], note['y'], field_data)
             dn.draw(screen)
             note['y'] = round((nowtime - note['st_time']) * Decimal(speed))
 

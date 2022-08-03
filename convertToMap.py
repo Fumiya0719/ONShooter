@@ -10,8 +10,7 @@ def convertToMap(mapdata, speed, field_data):
     bpm = Decimal(mapdata['bpm'])
     start = mapdata['offset']
     judge_point = field_data['judge_point']
-    judge_line_scale = field_data['judge_line_scale']
-
+    
     MAP['title'] = title
     MAP['bpm'] = bpm
     MAP['score'] = []
@@ -52,10 +51,11 @@ def convertToMap(mapdata, speed, field_data):
                 file = note[0] + '.png'
                 # ノーツ画像の読み込み
                 note_img = pygame.image.load('images/' + file)
-                # ノーツ画像のリサイズ
+                pprint.pprint(field_data['note_sizex'])
+
                 note_img = pygame.transform.scale(note_img, (
-                    round(Decimal(judge_line_scale / 6.76 / 4)),
-                    round(Decimal(judge_line_scale / 15.33 / 4))
+                    field_data['note_sizex'],
+                    field_data['note_sizey']
                 ))
 
                 # オフセット

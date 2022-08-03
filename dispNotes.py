@@ -3,10 +3,17 @@ from pygame.locals import *
 
 class DispNotes(pygame.sprite.Sprite):
     # ノーツの定義
-    def __init__(self, note, x, y):
+    def __init__(self, note, y, field_data):
         pygame.sprite.Sprite.__init__(self)
 
         self.note = note
+        # ノーツのy座標に応じてスケールを変化
+        self.note = pygame.transform.scale(self.note, (
+            
+        ))
+
+
+        self.y = y
 
         self.rect = note.get_rect()
         self.rect.center = (x, y)
