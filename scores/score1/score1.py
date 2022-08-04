@@ -43,12 +43,12 @@ MAPDATA = {
                     ['red'],
                 ],
                 [
-                    ['blue'],
-                    ['blue'],
+                    ['green'],
+                    ['green'],
                 ],
                 [
-                    ['green'],
-                    ['green'],
+                    ['blue'],
+                    ['blue'],
                 ],
                 [
                     ['red'],

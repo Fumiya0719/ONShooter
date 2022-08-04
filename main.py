@@ -54,13 +54,14 @@ field_data = SCREEN.setData()
 MAP = convertToMap.convertToMap(score1.MAPDATA, Decimal(speed), field_data)
 # 譜面データから譜面本体(ノーツデータ)を書き出す
 SCORE = readMap.readMap(MAP['score'], field_data)
-pprint.pprint(SCORE)
 # pprint.pprint(field_data)
+# pprint.pprint(SCORE)
 # sys.exit()
 
 running = True
 outNote = True
 judge_point = field_data['judge_point']
+print(judge_point)
 point = 0
 st_time = pygame.time.get_ticks()
 disp_notes = []
@@ -100,7 +101,7 @@ while running:
     # ノーツの表示と移動
     if disp_notes:
         for i, note in enumerate(disp_notes):
-            dn = DispNotes(note['note'], note['y'], field_data)
+            dn = DispNotes(note['note'], note['xs'], note['xe'],  note['y'], field_data)
             dn.draw(screen)
             note['y'] = round((nowtime - note['st_time']) * Decimal(speed))
 

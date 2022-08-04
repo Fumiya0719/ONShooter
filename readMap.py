@@ -10,7 +10,8 @@ def readMap(score, field_data):
         note = {
             'note': note['note'],
             'note_type': note['note_type'],          
-            'x': note['x'],
+            'xs': note['xs'],
+            'xe': note['xe'],
             'y': note['y'],
             'ln': note['ln'],
             'ex': note['ex']
