@@ -13,7 +13,7 @@ class Field(pygame.sprite.Sprite, Colors):
 
     # 描写に必要なデータの準備
     def setData(self):
-        self.screen.fill(Colors.DGRAY)
+        # self.screen.fill(Colors.DGRAY)
 
         # yを5分割する(4:ノーツの出現位置(y=0), 1:判定ラインからノーツの消失点(y=高さ))
         self.judge_line = self.y/5 * 4
@@ -75,8 +75,8 @@ class Field(pygame.sprite.Sprite, Colors):
 
     # フィールドの描画
     def draw(self, screen):
-        for line in self.lines:
-            pygame.draw.aaline(screen, Colors.BLACK, line[0], line[1])            
+        # for line in self.lines:
+        #     pygame.draw.aaline(screen, Colors.BLACK, line[0], line[1])            
         pygame.draw.line(screen, Colors.ORANGE, (self.field_st_jg, self.judge_line), (self.field_ed_jg, self.judge_line), 5)
 
         

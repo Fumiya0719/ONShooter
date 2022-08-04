@@ -61,7 +61,6 @@ SCORE = readMap.readMap(MAP['score'], field_data)
 running = True
 outNote = True
 judge_point = field_data['judge_point']
-print(judge_point)
 point = 0
 st_time = pygame.time.get_ticks()
 disp_notes = []
@@ -74,6 +73,7 @@ if os.path.isfile(AUDIO):
     pygame.mixer.music.play(1)
     pygame.mixer.music.set_volume(0.2)
 while running:
+    screen.fill(Colors.BLACK)
     SCREEN.draw(screen)
 
     pass_time = pygame.time.get_ticks()
@@ -118,7 +118,10 @@ while running:
             for i, note in enumerate(disp_notes):
                 if  ((event.key in keyR and note['note_type'] == 'red') or
                     (event.key in keyG and note['note_type'] == 'green') or 
-                    (event.key in keyB and note['note_type'] == 'blue')):
+                    (event.key in keyB and note['note_type'] == 'blue') or
+                    (event.key in keyR and note['note_type'] == 'red2') or
+                    (event.key in keyG and note['note_type'] == 'green2') or 
+                    (event.key in keyB and note['note_type'] == 'blue2')):
                     if judge_point - 100 <= note['y'] and note['y'] <= judge_point + 100:
                         point += 1
                         if judge_point - 66 <= note['y'] and note['y'] <= judge_point + 66:
