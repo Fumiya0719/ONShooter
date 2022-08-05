@@ -16,8 +16,8 @@ pygame.init()
 スクリーン設定
 """
 # 画面サイズ
-SCREEN_WIDTH = 1600
-SCREEN_HEIGHT = 900
+SCREEN_WIDTH = 1900 
+SCREEN_HEIGHT = 1080
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 font = pygame.font.SysFont('C:/Windows/Fonts/Yu Gothic UI', 30)
 
@@ -30,7 +30,7 @@ pygame.display.set_caption('ONShooter')
 MAPNAME = 'score1'
 AUDIO = 'scores/' + MAPNAME + '/audio.mp3'
 # ハイスピード設定
-speed = 0.8
+speed = 1
 # キーコンフィグ
 keyR = [pygame.K_s, pygame.K_j]
 keyG = [pygame.K_d, pygame.K_k]
@@ -109,7 +109,7 @@ while running:
                 del disp_notes[i]
 
     for event in pygame.event.get():
-        if event.type == QUIT:
+        if event.type == QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             if os.path.isfile(AUDIO):
                 pygame.mixer.music.stop()
             running = False

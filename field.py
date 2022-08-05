@@ -76,7 +76,9 @@ class Field(pygame.sprite.Sprite, Colors):
     # フィールドの描画
     def draw(self, screen):
         # for line in self.lines:
-        #     pygame.draw.aaline(screen, Colors.BLACK, line[0], line[1])            
-        pygame.draw.line(screen, Colors.ORANGE, (self.field_st_jg, self.judge_line), (self.field_ed_jg, self.judge_line), 5)
+        #     pygame.draw.aaline(screen, Colors.BLACK, line[0], line[1])
+        pygame.draw.aaline(screen, Colors.WHITE, (self.field_st_st, 0), (self.field_st_ed, self.y), 2)            
+        pygame.draw.aaline(screen, Colors.WHITE, (self.field_ed_st, 0), (self.field_ed_ed, self.y), 2)            
+        pygame.draw.aaline(screen, Colors.ORANGE, (self.field_st_jg, self.judge_line), (self.field_ed_jg, self.judge_line), 5)
 
         
