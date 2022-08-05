@@ -1,5 +1,5 @@
 # 譜面データ(Score)を音ゲーとして出力できる形式に変換する
-def readMap(score):
+def readMap(score, field_data):
 
     arr = {}
 
@@ -9,9 +9,12 @@ def readMap(score):
 
         note = {
             'note': note['note'],
-            'note_type': note['note_type'],
-            'x': note['x'],
-            'y': note['y']
+            'note_type': note['note_type'],          
+            'xs': note['xs'],
+            'xe': note['xe'],
+            'y': note['y'],
+            'ln': note['ln'],
+            'ex': note['ex']
         }   
 
         if not offset in arr:
